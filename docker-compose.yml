@@ -62,4 +62,22 @@ services:
     volumes:
       - mongodb_product_catalog_data:/data/db
   
-  
+
+  order-management:
+    image: order-management:1.0.0
+    container_name: order-management
+    depends_on:
+      - mongodb-order-management
+    ports:
+      - "9090:9090"
+    environment:
+      - PRODUCT_INVENTORY_API_HOST=http://product-inventory
+      - PRODUCT_CATALOG_API_HOST=http://product-catalog
+      - SHIPPING_HANDLING_API_HOST=http://shipping-and-handling
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb-order-management:27017/order_management
+
+  mongodb-order-management: # mongo will use container port 27017
+    image: mongo
+    container_name: mongodb-order-management
+    volumes:
+      - mongodb_order_management:/data/db
