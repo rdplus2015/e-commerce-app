@@ -81,3 +81,30 @@ services:
     container_name: mongodb-order-management
     volumes:
       - mongodb_order_management:/data/db
+  
+  # postgres-product-inventory service 
+  product-inventory:
+    image: product-inventory:1.0.0
+    container_name: product-inventory
+    depends_on:
+      - postgres-product-inventory
+    ports:
+      - "3002:3002"
+    environment:
+      - POSTGRES_HOST=postgres-product-inventory
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=product_inventory
+      - POSTGRES_USER=inventory_user
+      - POSTGRES_PASSWORD=inventory_password
+
+  postgres-product-inventory:
+    image: postgres 
+    container_name: postgres-product-inventory
+    environment:
+      - POSTGRES_DB=product-inventory
+      - POSTGRES_USER=inventory_user
+      - POSTGRES_PASSWORD=inventory_password
+    volumes:
+      - postgres_product_inventory_data:/var/lib/postgres/data 
+
+    
