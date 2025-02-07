@@ -3,7 +3,7 @@ version: '1'
 services:
 
   ecommerce-ui:
-    image: ecommerce-ui
+    image: ecommerce-ui:1.0.0
     container_name: ecommerce-ui
     ports:
       - "4000:4000"
@@ -51,13 +51,13 @@ services:
     depends_on:
       - mongodb-shipping
     environment:
-      - MONGODB_URI=mongodb://mongodb-shipping:27017  
+      - MONGO_URI=mongodb://mongodb-shipping:27017  
 
   mongodb-shipping:
     image: mongo
     container_name: mongodb-shipping
-    ports:
-      - "27020:27017" # Avoid conflicts if multiple MongoDB services exist. each can be exposed on a different port on the host while using 27017 internally.
+    #ports:
+      #- "27020:27017" # Avoid conflicts if multiple MongoDB services exist. each can be exposed on a different port on the host while using 27017 internally.
     volumes:
       - mongodb_shipping_data:/data/db
   
@@ -135,7 +135,7 @@ services:
     ports:
       - "3003:3003"
     environment:
-      - MYSQL_HOST=mysql_profile_management
+      - MYSQL_HOST=mysql-profile-management
       - MYSQL_PORT=3306
       - MYSQL_DATABASE=profile_management
       - MYSQL_USER=profile_user
@@ -153,12 +153,13 @@ services:
       - mysql_profile_management_data:/var/lib/mysql
 
 volumes:
+   mongodb_product_catalog_data:
    mongodb_contact_support_data:
    mongodb_shipping_data:
-   mongodb_product_catalog_data:
    mongodb_order_management_data:
-   postgres_product_inventory_data:
    mysql_profile_management_data:
+   postgres_product_inventory_data:
+  
 
 
 
