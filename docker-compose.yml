@@ -1,0 +1,22 @@
+version: '1'
+
+services:
+
+  # contact-support-team service
+  contact-support-team:
+      image: contact-support-team:1.0.0
+      container_name: contact-support-team
+      ports:
+        - "8000:8000"
+      depends_on:
+        - mongodb-contact-support-team 
+      environment:
+        - MONGODB_HOST=mongodb-contact-support-team 
+        - MONGODB_PORT=27017
+        - MONGODB_DATABASE=contact_support # MongoDB will create the database when it contains data.
+
+  mongodb-contact-support-team:
+    image: mongo
+    container_name: mongodb-contact-support-team
+    volumes:
+      - mongodb_contact_support_data:/data/db  # Volume name and location inside the container 
