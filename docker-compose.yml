@@ -20,3 +20,23 @@ services:
     container_name: mongodb-contact-support-team
     volumes:
       - mongodb_contact_support_data:/data/db  # Volume name and location inside the container 
+
+
+  # shipping-and-handling
+  shipping-and-handling:
+    image: shipping-and-handling:1.0.0
+    container_name: shipping-and-handling
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb-shipping
+    environment:
+      - MONGODB_URI=mongodb://mongodb-shipping:27017  
+
+  mongodb-shipping:
+    image: mongo
+    container_name: mongodb-shipping
+    ports:
+      - "27020:27017" # Avoid conflicts if multiple MongoDB services exist. each can be exposed on a different port on the host while using 27017 internally.
+    volumes:
+      - mongodb_shipping_data:/data/db
