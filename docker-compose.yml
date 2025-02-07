@@ -22,7 +22,7 @@ services:
       - mongodb_contact_support_data:/data/db  # Volume name and location inside the container 
 
 
-  # shipping-and-handling
+  # shipping-and-handling service 
   shipping-and-handling:
     image: shipping-and-handling:1.0.0
     container_name: shipping-and-handling
@@ -40,3 +40,26 @@ services:
       - "27020:27017" # Avoid conflicts if multiple MongoDB services exist. each can be exposed on a different port on the host while using 27017 internally.
     volumes:
       - mongodb_shipping_data:/data/db
+  
+
+  # product-catalog service     
+  product-catalog:
+    image: product-catalog:1.0.0
+    container_name: product-catalog
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb-product-catalog
+
+    environment:
+      - MONGODB_HOST=mongodb-product-catalog
+      - MONGODB_PORT=27017
+      - MONGODB_DATABASE=product_catalog     
+  
+  mongodb-product-catalog:
+    image: mongo
+    container_name: mongodb-product-catalog
+    volumes:
+      - mongodb_product_catalog_data:/data/db
+  
+  
