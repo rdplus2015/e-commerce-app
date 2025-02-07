@@ -2,6 +2,26 @@ version: '1'
 
 services:
 
+  ecommerce-ui:
+    image: ecommerce-ui
+    container_name: ecommerce-ui
+    ports:
+      - "4000:4000"
+    environment:
+      - REACT_APP_PROFILE_API_HOST=http://profile-management 
+      - REACT_APP_SHIPPING_API_HOST=http://shipping-and-handling 
+      - REACT_APP_CONTACT_API_HOST=http://contact-support-team
+      - REACT_APP_INVENTORY_API_HOST=http://product-inventory 
+      - REACT_APP_PRODUCT_API_HOST=http://product-catalog 
+      - REACT_APP_ORDER_API_HOST=http://order-management  
+    depends_on:
+      - profile-management
+      - product-catalog
+      - product-inventory
+      - order-management
+      - shipping-and-handling
+      - contact-support-team
+
   # contact-support-team service
   contact-support-team:
       image: contact-support-team:1.0.0
@@ -80,7 +100,7 @@ services:
     image: mongo
     container_name: mongodb-order-management
     volumes:
-      - mongodb_order_management:/data/db
+      - mongodb_order_management_data:/data/db
   
   # postgres-product-inventory service 
   product-inventory:
@@ -101,14 +121,14 @@ services:
     image: postgres 
     container_name: postgres-product-inventory
     environment:
-      - POSTGRES_DB=product-inventory
+      - POSTGRES_DB=product_inventory
       - POSTGRES_USER=inventory_user
       - POSTGRES_PASSWORD=inventory_password
     volumes:
       - postgres_product_inventory_data:/var/lib/postgres/data 
 
   profile-management:
-    image: profile--management:1.0.0
+    image: profile-management:1.0.0
     container_name: profile-management
     depends_on:
       - mysql-profile-management
@@ -131,3 +151,14 @@ services:
       - MYSQL_ROOT_PASSWORD=root_password
     volumes:
       - mysql_profile_management_data:/var/lib/mysql
+
+volumes:
+   mongodb_contact_support_data:
+   mongodb_shipping_data:
+   mongodb_product_catalog_data:
+   mongodb_order_management_data:
+   postgres_product_inventory_data:
+   mysql_profile_management_data:
+
+
+
