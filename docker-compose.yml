@@ -107,4 +107,27 @@ services:
     volumes:
       - postgres_product_inventory_data:/var/lib/postgres/data 
 
-    
+  profile-management:
+    image: profile--management:1.0.0
+    container_name: profile-management
+    depends_on:
+      - mysql-profile-management
+    ports:
+      - "3003:3003"
+    environment:
+      - MYSQL_HOST=mysql_profile_management
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=profile_management
+      - MYSQL_USER=profile_user
+      - MYSQL_PASSWORD=profile_password
+  
+  mysql-profile-management:
+    image: mysql:8.0
+    container_name: mysql-profile-management
+    environment:
+      - MYSQL_DATABASE=profile_management
+      - MYSQL_USER=profile_user
+      - MYSQL_PASSWORD=profile_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - mysql_profile_management_data:/var/lib/mysql
