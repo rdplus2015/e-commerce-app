@@ -28,20 +28,35 @@ This will start all the microservices and their associated databases in detached
 
 ## Services Overview
 
--   **E-commerce UI**: The frontend React application. Accessible at `http://localhost:4000`.
+-   **E-commerce UI** (React, Tailwind CSS)
     
--   **Contact Support Microservice**: Handles contact messages. Accessible at `http://localhost:8000`.
+    -   The frontend application.
+    -   Accessible at `http://localhost:4000`.
+-   **Contact Support Microservice** (Node.js, Express, MongoDB)
     
--   **Shipping and Handling Microservice**: Calculates shipping fees. Accessible at `http://localhost:8080`.
+    -   Handles customer support messages.
+    -   Accessible at `http://localhost:8000`.
+-   **Shipping and Handling Microservice** (Java, Spring Boot, PostgreSQL)
     
--   **Product Catalog Microservice**: Manages product data. Accessible at `http://localhost:3001`.
+    -   Calculates shipping fees.
+    -   Accessible at `http://localhost:8080`.
+-   **Product Catalog Microservice** (Node.js, Express, MongoDB)
     
--   **Order Management Microservice**: Handles orders and cart management. Accessible at `http://localhost:9090`.
+    -   Manages product data.
+    -   Accessible at `http://localhost:3001`.
+-   **Order Management Microservice** (Python, FastAPI, PostgreSQL)
     
--   **Product Inventory Microservice**: Manages product inventory. Accessible at `http://localhost:3002`.
+    -   Handles orders and cart management.
+    -   Accessible at `http://localhost:9090`.
+-   **Product Inventory Microservice** (Go, Gin, PostgreSQL)
     
--   **Profile Management Microservice**: Handles user authentication and profiles. Accessible at `http://localhost:3003`.
+    -   Manages product inventory.
+    -   Accessible at `http://localhost:3002`.
+-   **Profile Management Microservice** (Node.js, Express, MongoDB, JWT)
     
+    -   Handles user authentication and profiles.
+    -   Accessible at `http://localhost:3003`.
+
 
 ## Running Containers Individually
 
