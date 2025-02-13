@@ -2,33 +2,20 @@
 
 This Docker image provides a Spring Boot application for managing user orders in an e-commerce platform. It allows adding products to a cart, calculating cart totals, and processing purchases.
 
-## Version 2.0.0 Update
-In version 2.0.0, the Order Management Microservice is updated to include MongoDB integration, which relies on environment variables to configure the MongoDB connection and other application settings.
+the Order Management Microservice includes MongoDB integration, which relies on environment variables to configure the MongoDB connection and other application settings.
 
-```
-docker run --network my-network \
-  -e PRODUCT_INVENTORY_API_HOST=http://product-inventory \
-  -e PRODUCT_CATALOG_API_HOST=http://product-catalog \
-  -e SHIPPING_HANDLING_API_HOST=http://shipping-and-handling \
-  -e SPRING_DATA_MONGODB_URI=mongodb://host:27017/name \
-  -e SPRING_DATA_MONGODB_DATABASE=order_management \
-  -p 9090:9090 --name order-management rslim087/order-management
-```
-## Usage
+## Building the Image
 
-To run a container from this image, use the following command:
+To build the Docker image yourself, follow these steps:
 
-```bash
-docker run --network my-network \
--e PRODUCT_INVENTORY_API_HOST=http://product-inventory \
--e PRODUCT_CATALOG_API_HOST=http://product-catalog \
--e SHIPPING_HANDLING_API_HOST=http://shipping-and-handling \
--p 9090:9090 --name order-management rslim087/order-management
-```
+1. Clone the repository containing the application code.
+2. Navigate to the directory where the Dockerfile is located.
+3. Build the image using the following command:
+   ```bash
+   docker build -t order-management:1.0.0 .
+   ```
 
-The microservice will be accessible at `http://localhost:9090`.
-
-### API Endpoints
+## API Endpoints
 
 - `POST /api/orders/{userId}/cart`: Adds a product to the user's cart.
 - `GET /api/orders/{userId}/cart/subtotal`: Retrieves the cart subtotal for the user.
@@ -47,36 +34,10 @@ The container requires the following environment variables to be set:
 
 These variables are used by the application to communicate with the necessary microservices to fetch product details, inventory status, and shipping information.
 
-## Docker Network
-
-To ensure the Order Management microservice can communicate with the required microservices, it should be connected to the same Docker network. Here’s how you can set it up:
-
-1. Create a Docker network if you haven't already:
-   ```bash
-   docker network create my-network
-   ```
-
-2. Run the Order Management microservice along with the other microservices on the same network, using the `--network` flag as shown in the usage example.
-
-## Building the Image
-
-To build the Docker image yourself, follow these steps:
-
-1. Clone the repository containing the application code.
-2. Navigate to the directory where the Dockerfile is located.
-3. Build the image using the following command:
-   ```bash
-   docker build -t rslim087/order-management .
-   ```
-
-## Contributing
-
-If you would like to contribute to the Order Management microservice, please follow the contributing guidelines outlined in the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
-
 ## License
 
-This project is licensed under the [MIT License](./LICENSE).
+This project is licensed under the **MIT License**
 
 ## Support
 
-For any issues or questions regarding this Docker image or the Order Management microservice, please [open an issue](https://github.com/your-repo/issues) on the GitHub repository.
+For issues or questions, please [open an issue](https://github.com/rdplus2015/e-commerce-app/issues) on the GitHub repository.
